@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+ <html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        {% load static %}
+        <link rel="stylesheet" href ="{% static 'edit_trip.css'%}">
+    </head>
+    <body>
+        <a style="color:royalblue; margin-left: 800px;" href="/log_out">Logout  </a>
+        {% if messages %}
+        <ul class="messages">    
+            {% for message in messages %}    
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <h3>Hello,{{ a_user.first_name }}!  Let's Edit your page! </h3>
+        <div class ="edit_trip">
+            <form action="/trips/update/{{a_trip.id}}" method = "POST">
+                {% csrf_token %}
+                <label for="destination">Destination</label><br>
+                <input type="text" style="width: 200px;" class= "title" name="destination" value = {{a_trip.destination}}><br><br>
+                <label for="date">Start Date</label><br>
+                <input type="date" style="width: 200px;" name="start_date" value = {{a_trip.start_date|date:"Y-m-d"}}><br><br>
+                <label for="date">End Date</label><br>
+                <input type="date" style="width: 200px;" name="end_date" value = {{a_trip.end_date|date:"Y-m-d"}}><br><br>
+                <label for="plan">Plan</label><br> 
+                <input type="text" style="width: 200px; height:100px;" name="plan" value = {{a_trip.plan}}><br><br>
+                <br>
+                <button type ="submit" class="btn">Edit</button>
+            </form>      
+        </div>  
+    </body>
+</html>

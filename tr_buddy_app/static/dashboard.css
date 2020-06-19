@@ -1,0 +1,30 @@
+body{
+    background-color:whitesmoke;
+    padding:50px;
+    position: absolute;
+}
+
+.btn {
+    background-color: dodgerblue;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    opacity: 0.9;
+}
+a{
+    color: dodgerblue;
+}
+
+.container_two{
+    display: inline-block;
+    width: 400px;
+    margin-left: 250px;
+    vertical-align: top;
+
+}
+
+p{
+    margin-bottom: 0px;
+}

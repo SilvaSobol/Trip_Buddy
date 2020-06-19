@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+ <html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>User Account</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        {% load static %}
+        <link rel="stylesheet" href ="{% static 'add_trip.css' %}">
+     
+    </head>
+    <body>
+        <button type ="submit" class="btn"><a style="color: white" href="/log_out">Logout</a></button><br>
+        <div class = "title" style = "width: 480px; margin-right: 0px;">
+            <h3 style ="color: aliceblue; font-family: fantasy;"> Hello,   {{ a_user.first_name }}!    Create your trip!</h3>
+            <br><br>
+        </div>
+            {% if messages %}
+            <ul class="messages">    
+                {% for message in messages %}    
+                    <li class="text-danger text-small" style ="color: orangered">{{ message }}</li>    
+                {% endfor %}
+            </ul>
+            {% endif %}
+        <div class ="add_book">
+            <form action="/create_trip" method ="POST">
+                {% csrf_token %}
+                <label for="destination">Destination</label><br>
+                <input type="text" style="width: 200px;" class= "title" name="destination"><br>
+                <label for="start_date">Start Date: </label><br>
+                <input type="date" style="width: 200px;"  name="start_date"><br>
+                <label for="end_date">End Date: </label><br>
+                <input type="date" style="width: 200px;" name="end_date"><br><br>
+                <label for="plan">Plan</label><br>
+                <input type="text" style="width: 200px; height: 100px;" name="plan"><br>
+                <button type ="submit" class="btn">Submit</button>
+                <!-- <button type ="submit" class="btn"><a href="/delete_post/{{post.id}}">Delete</a></button> -->
+            </form>
+            <button type ="submit" class="btn"><a href="/delete_post/{{post.id}}">Cancel</a></button>
+        </div>
+    </body>
+</html>

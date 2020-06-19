@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+ <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        {% load static %}
+        <link rel="stylesheet" href ="{% static 'dashboard.css' %}">
+        <style>
+            <textarea id="desc" rows="5" cols="40"> </textarea>
+            table {
+              font-family: arial, sans-serif;
+              border-collapse: collapse;
+              width: 100%;
+            }
+            
+            td, th {
+              border: 1px solid #dddddd;
+              text-align: left;
+              border-spacing: 10px;
+              padding: 8px;
+            }
+            
+            tr:nth-child(even) {
+              background-color: #dddddd
+            }
+            div #yours{
+            background-color: rgb(204, 183, 183);
+            width: 300x;
+            height: 100px;
+            border: 1px solid rgba(12, 42, 99, 0.829) ;
+            overflow: scroll;
+          }
+            div #others{
+                background-color: gainsboro;
+                width: 300x;
+                height: 100px;
+                border: 1px solid rgba(12, 42, 99, 0.829) ;
+                overflow: scroll;
+            }
+
+          </style>
+    </head>
+    <body>
+        <a style="color:royalblue; margin-left: 800px;" href="/log_out">Logout  </a>
+        <button type="button" class="btn"><a  style = "color: aliceblue;" href="/trips/new">Create a new trip!</a></button>
+        <h2> Hello,{{ a_user.first_name }}! </h2>
+        <br><br>
+        <hr>
+        <div class ="scroll">
+            <dir class="yours">
+            <h4>Your trips:</h4>
+            <table>
+                <tr>
+                  <th class ="fixed">Description</th>
+                  <th class ="fixed">Sart Date</th>
+                  <th class ="fixed">End Date</th>
+                  <th class ="fixed">Plan</th>
+                  <th class = "fixed">Actions</th>
+                </tr>
+                <tr>
+                  {% for a_trip in all_trips %}
+                    {% if a_trip in a_user.has_trips.all %}
+                      <td><a href="/trip_info/{{a_trip.id}}">{{a_trip.destination}}</a></td>
+                      <td>{{a_trip.start_date}}</td>
+                      <td>{{a_trip.end_date}}</td>
+                      <td>{{a_trip.plan }}</td>
+                      <td>
+                      <a href="/trips/{{a_trip.id}}/destroy">Remove   |</a>
+                      <a href="/trips/edit/{{a_trip.id}}">Edit</a>
+                      </td>
+                      {% endif %}
+                  {% endfor %}
+                </tr>
+            </table><br><br>
+            </dir>
+            <dir class="others">
+                <h4>Other people's trips:</h4>
+                <table>
+                    <tr>
+                      <th class ="fixed">Description</th>
+                      <th class ="fixed">Sart Date</th>
+                      <th class ="fixed">End Date</th>
+                      <th class ="fixed">Plan</th>
+                      <th class = "fixed">Whant to join?</th>
+                    </tr>
+                    <tr>
+                      {% for a_trip in all_trips %}
+                      {% if request.session.userid != a_trip.travels_by.id %}
+                        <td><a href="/trip_info/{{a_trip.id}}">{{a_trip.destination}}</a></td>
+                        <td>{{a_trip.start_date}}</td>
+                        <td>{{a_trip.end_date}}</td>
+                        <td>{{a_trip.plan }}</td>
+                        <td>
+                        <a href="/join/{{a_trip.id}}">Join</a>
+                        </td>
+                       </tr>
+                       {% endif %}
+                      {% endfor %}
+                </table>
+                </dir>
+          </div>
+        <br>
+    </body>
+</html>
